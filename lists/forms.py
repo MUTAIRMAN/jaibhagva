@@ -16,6 +16,31 @@ class TodoForm(forms.Form):
         )
     )
 
+class LoginForm(forms.Form):
+
+    username = forms.CharField(
+        **form_kwargs(widget=forms.TextInput(attrs=widget_attrs('Username')))
+    )
+    password = forms.CharField(
+        **form_kwargs(
+            widget=forms.PasswordInput(attrs=widget_attrs('Password'))
+        )
+    )
+
+    def clean(self):
+        # Don't check if we already have errors.
+        if self.errors:
+            return self.cleaned_data
+
+        username = self.cleaned_data.get('username')
+        password = self.cleaned_data.get('password')
+        user = User.objects.filter(username=username).first()
+
+        if not user or not user.check_password(password):
+            raise forms.ValidationError('Incorrect username and/or password.')
+
+        return self.cleaned_data
+
 
 class TodoListForm(forms.Form):
     title = forms.CharField(

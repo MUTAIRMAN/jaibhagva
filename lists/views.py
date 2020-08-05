@@ -1,13 +1,32 @@
 from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
+from django import forms
+from accounts.forms import LoginForm, RegistrationForm
+from django.contrib.auth import authenticate, login, logout
 
 from lists.models import TodoList, Todo
 from lists.forms import TodoForm, TodoListForm
 
 
 def index(request):
-    return render(request, 'lists/index.html', {'form': TodoForm()})
+    if request.method == 'POST':
+        form = LoginForm(request.POST)
+        if form.is_valid():
+            user = authenticate(
+                username=request.POST['username'],
+                password=request.POST['password']
+            )
+            if user is not None:
+                if user.is_active:
+                    login(request, user)
+                    return render(request, 'lists/homepage.html')
+        else:
+            return render(request, 'accounts/login.html', {'form': form})
+    else:
+        return render(request, 'accounts/login.html', {'form': LoginForm()})
+
+    return redirect('lists:index')
 
 
 def todolist(request, todolist_id):

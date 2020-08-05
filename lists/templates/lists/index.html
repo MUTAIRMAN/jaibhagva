@@ -1,19 +1,85 @@
-{% extends "base.html" %}
+<!DOCTYPE html>
+<html lang="en">
 
+<head>
+<!-- Basic Page Needs
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<meta charset="utf-8">
+<title>Todolist</title>
+<meta name="description" content="Small todolist app.">
+<meta name="author" content="Christian Rotzoll">
+<!-- Mobile Specific Metas
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, maximum-scale=1">
+<!-- FONT
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<link href='http://fonts.googleapis.com/css?family=Raleway:400,300,600'
+	rel='stylesheet' type='text/css'>
+{% load static %}
+<!-- CSS
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<link rel="stylesheet" type='text/css'
+	href="https://cdnjs.cloudflare.com/ajax/libs/normalize/3.0.2/normalize.min.css">
+<link rel="stylesheet" type='text/css'
+	href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css">
+<link rel="stylesheet" type='text/css'
+	href="{% static 'css/custom.css' %}">
+{% block css %}{% endblock %}
+<!-- Scripts
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<script type="text/javascript"
+	src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script type="text/javascript" src="{% static 'js/site.js' %}"></script>
+{% block js %}{% endblock %}
+<!-- Favicon
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<link rel="icon" type="image/png"
+	href="{% static 'images/favicon.png' %}" />
+</head>
+<body>
 {% block body %}
+<body>
+	<!-- Primary Page Layout
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+	<div class="container">
+		<!-- Navigation
+    –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+		<div class="navbar-spacer"></div>
+		<nav class="navbar">
+			<div class="container">
+				<ul class="navbar-list">
+					<li class="navbar-item"><a class="navbar-link"
+						href="{% url 'auth:login' %}">Login</a>
+					<li class="navbar-item"><a class="navbar-link" href="#"
+						data-popover="#moreNavPopover">{{ user.username }}</a>
+						<div id="moreNavPopover" class="popover">
+							<ul class="popover-list">
+
+								<li class="popover-item"><a class="popover-link"
+									href="{% url 'auth:register' %}">register a member</a></li>
+
+								<li class="popover-item"><a class="popover-link"
+									href="{% url 'lists:overview' %}">All Todolists</a></li>
+								<li class="popover-item"><a class="popover-link"
+									href="{% url 'auth:logout' %}">logout</a></li>
+							</ul>
+						</div>
+				</ul>
+			</div>
+		</nav>
+	</div>
+	<!-- End Document
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
 <section class="header">
-  <h2 class="title">Dead simple Todolists.</h2>
+  <h2 class="title">Welcome Buddy</h2>
   <div class="row">
-    <div class="three columns value-prop"></div>
-    <div class="six columns">
-      <form action="{% url 'lists:new_todolist' %}" method=post>
-        {% csrf_token %}
-        <dl>
-          <dd>{{ form }}
-          <dt><input type="submit" class="button button-primary" value="Start one now">
-        </dl>
-      </form>
-    </div>
-  </div>
+   <a href="{% url 'auth:login' %}">Please login</a>
+   </div>
 </section>
 {% endblock %}
+	<!-- End Document
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+</body>
+
+</html>

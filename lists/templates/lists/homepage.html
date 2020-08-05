@@ -38,6 +38,9 @@
 	href="{% static 'images/favicon.png' %}" />
 </head>
 
+
+<body>
+{% block body %}
 <body>
 	<!-- Primary Page Layout
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
@@ -48,8 +51,7 @@
 		<nav class="navbar">
 			<div class="container">
 				<ul class="navbar-list">
-					<li class="navbar-item"><a class="navbar-link"
-						href="{% url 'auth:login' %}">Login</a>
+					<li class="navbar-item">
 					<li class="navbar-item"><a class="navbar-link" href="#"
 						data-popover="#moreNavPopover">{{ user.username }}</a>
 						<div id="moreNavPopover" class="popover">
@@ -67,8 +69,18 @@
 				</ul>
 			</div>
 		</nav>
-		{% block body %}{% endblock %}
 	</div>
+	<!-- End Document
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+
+<section class="header">
+
+  <h2 class="title">Welcome Buddy</h2>
+  <div class="row">
+   <p>Please use the Right Top Menu</p>
+   </div>
+</section>
+{% endblock %}
 	<!-- End Document
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
 </body>
